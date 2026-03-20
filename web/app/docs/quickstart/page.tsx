@@ -51,7 +51,7 @@ export default function QuickstartPage() {
           <section>
             <h2 className="text-[14px] font-semibold text-white">6. View the dashboard</h2>
             <p className="mt-2">
-              Open `app.scopeform.dev` to inspect agent status, review logs, and revoke access.
+              Open the dashboard to inspect agent status, review logs, and revoke access.
             </p>
           </section>
         </div>

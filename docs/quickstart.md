@@ -1,84 +1,137 @@
 # Quickstart
 
+Register your first agent and proxy your first API call in under 5 minutes.
+
 ## Prerequisites
 
 - Python `3.8+` or Node `18+`
-- A Scopeform account
-- Access to your organisation in the Scopeform dashboard
+- A Scopeform account — sign up at [scopeform-web.vercel.app/sign-up](https://scopeform-web.vercel.app/sign-up)
 
-## Step 1: Install Scopeform
+## Step 1 — Install the CLI
 
-Python:
-
+**Python:**
 ```bash
 pip install scopeform
 ```
 
-Node:
-
+**Node.js:**
 ```bash
 npm install -g scopeform
 ```
 
-## Step 2: Log in
+Verify:
+```bash
+scopeform --version
+```
+
+## Step 2 — Log in
 
 ```bash
 scopeform login
 ```
 
-This opens the browser sign-in flow and stores your CLI session in `~/.scopeform/config.json`.
+You will be prompted for your email and password. Your session is saved to `~/.scopeform/config.json`.
 
-## Step 3: Initialise your agent project
+## Step 3 — Add a provider API key
+
+Before deploying an agent, add the API key for the service you want to proxy.
+
+1. Open [scopeform-web.vercel.app/dashboard/integrations](https://scopeform-web.vercel.app/dashboard/integrations)
+2. Find the service (e.g. OpenAI)
+3. Paste your API key and click **Save**
+
+Scopeform encrypts the key at rest. Your agents never see it.
+
+## Step 4 — Initialise your project
 
 ```bash
-cd your-agent
+cd your-agent/
 scopeform init
 ```
 
-This creates `scopeform.yml` with your agent identity, scopes, token TTL, and CI integration settings.
+Answer the prompts. This creates `scopeform.yml`:
 
-## Step 4: Deploy and issue a scoped token
+```yaml
+identity:
+  name: support-agent
+  owner: you@example.com
+  environment: production
+
+ttl: 24h
+
+scopes:
+  - service: openai
+    actions:
+      - chat.completions
+
+integrations:
+  ci: none
+```
+
+## Step 5 — Deploy
 
 ```bash
 scopeform deploy
 ```
 
-Scopeform will:
+Output:
+```
+✓ Registering agent...
+✓ Issuing scoped token...
+✓ Deploy successful.
 
-- register the agent if it does not exist yet
-- issue a short-lived scoped token
-- write `SCOPEFORM_TOKEN` to `.env`
+┌─────────────────┬──────────────────────────────┐
+│ Agent           │ support-agent                │
+│ Environment     │ production                   │
+│ Token expires   │ 2026-03-22 12:00 UTC         │
+│ Token written   │ .env                         │
+└─────────────────┴──────────────────────────────┘
+```
 
-## Step 5: Use `SCOPEFORM_TOKEN` in your agent code
+## Step 6 — Use the proxy
 
-Python example:
+Point your SDK at the Scopeform proxy instead of the provider directly.
 
+**Python (OpenAI):**
 ```python
-import os
+import os, openai
+from dotenv import load_dotenv
 
-scopeform_token = os.environ["SCOPEFORM_TOKEN"]
+load_dotenv()
 
-print(f"Loaded Scopeform token: {scopeform_token[:8]}...")
+openai.api_key  = os.environ["SCOPEFORM_TOKEN"]
+openai.base_url = "https://scopeform-production-f0b7.up.railway.app/api/v1/proxy/openai/v1"
+
+response = openai.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+print(response.choices[0].message.content)
 ```
 
-Node example:
-
+**Node.js (OpenAI):**
 ```js
-const scopeformToken = process.env.SCOPEFORM_TOKEN;
+import OpenAI from "openai";
+import "dotenv/config";
 
-console.log(`Loaded Scopeform token: ${scopeformToken.slice(0, 8)}...`);
+const openai = new OpenAI({
+  apiKey: process.env.SCOPEFORM_TOKEN,
+  baseURL: "https://scopeform-production-f0b7.up.railway.app/api/v1/proxy/openai/v1",
+});
+
+const res = await openai.chat.completions.create({
+  model: "gpt-4o-mini",
+  messages: [{ role: "user", content: "Hello!" }],
+});
+console.log(res.choices[0].message.content);
 ```
 
-## Step 6: View your agent in Scopeform
+## Step 7 — View the call in the dashboard
 
-Open `https://app.scopeform.dev` to:
-
-- inspect the registered agent
-- review recent logs
-- revoke access when needed
+Open [dashboard/logs](https://scopeform-web.vercel.app/dashboard/logs) to see every call logged with agent name, service, action, allowed/blocked status, and timestamp.
 
 ## Next steps
 
-- Read the [CLI Reference](/C:/Users/DELL/Projects/scopeform/docs/cli-reference.md)
-- Read the [scopeform.yml Reference](/C:/Users/DELL/Projects/scopeform/docs/scopeform-yml.md)
-- Read the [GitHub Actions Integration](/C:/Users/DELL/Projects/scopeform/docs/github-actions-integration.md)
+- [Proxy guide](./proxy.md) — Anthropic and GitHub examples
+- [GitHub Actions](./github-actions.md) — CI/CD token automation
+- [CLI reference](./cli-reference.md) — all commands and flags
