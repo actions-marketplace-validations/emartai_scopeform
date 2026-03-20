@@ -94,7 +94,7 @@ describe("node cli commands", () => {
     expect(fs.readFileSync(path.join(cwd, ".env"), "utf8")).toContain("SCOPEFORM_TOKEN=replacement-token");
     expect(fs.readFileSync(path.join(cwd, ".gitignore"), "utf8")).toContain(".env");
     expect(consoleLogSpy).toHaveBeenCalledWith("Agent already registered. Issuing new token...");
-    expect(consoleLogSpy).toHaveBeenCalledWith("Add SCOPEFORM_API_KEY to your GitHub Actions secrets");
+    expect(consoleLogSpy).toHaveBeenCalledWith("Add SCOPEFORM_TOKEN to your GitHub Actions secrets");
   });
 
   test("revoke confirms and revokes by agent id", async () => {

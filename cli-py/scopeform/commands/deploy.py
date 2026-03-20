@@ -133,4 +133,4 @@ def deploy_command(
         )
     )
     if scopeform_config.get("integrations", {}).get("ci") == "github-actions":
-        console.print("Add SCOPEFORM_API_KEY to your GitHub Actions secrets")
+        console.print("Add SCOPEFORM_TOKEN to your GitHub Actions secrets")

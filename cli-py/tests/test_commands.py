@@ -129,7 +129,7 @@ def test_deploy_success(monkeypatch, tmp_path, capsys):
     assert "Deploy successful." in output
     assert "alpha-agent" in output
     assert "****" in output
-    assert "Add SCOPEFORM_API_KEY to your GitHub Actions secrets" in output
+    assert "Add SCOPEFORM_TOKEN to your GitHub Actions secrets" in output
     expected_call = (
         "register_agent",
         {

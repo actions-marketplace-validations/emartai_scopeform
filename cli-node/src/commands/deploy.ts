@@ -58,6 +58,6 @@ export async function deployCommand(apiUrl: string): Promise<void> {
   console.log("Token written to: .env");
   console.log("Token: ****");
   if ((scopeformConfig.integrations as Record<string, string>).ci === "github-actions") {
-    console.log("Add SCOPEFORM_API_KEY to your GitHub Actions secrets");
+    console.log("Add SCOPEFORM_TOKEN to your GitHub Actions secrets");
   }
 }

@@ -31,7 +31,7 @@ def _version_callback(value: bool) -> None:
 def main(
     ctx: typer.Context,
     api_url: str = typer.Option(
-        os.getenv("SCOPEFORM_API_URL", "https://api.scopeform.dev"),
+        os.getenv("SCOPEFORM_API_URL", "https://scopeform-production-f0b7.up.railway.app"),
         "--api-url",
         help="Scopeform API base URL.",
     ),

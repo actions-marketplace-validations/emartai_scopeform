@@ -40,7 +40,7 @@ scopeform revoke <agent-name>
 
 ### `scopeform login`
 
-Open the browser login flow and store your CLI auth token securely in `~/.scopeform/config.json`.
+Sign in with your email and password. Stores your auth token in `~/.scopeform/config.json`.
 
 Flags:
 

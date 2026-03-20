@@ -40,7 +40,7 @@ scopeform revoke <agent-name>
 
 ### `scopeform login`
 
-Open the browser login flow and store your CLI auth token securely in `~/.scopeform/config.json`.
+Sign in with your email and password. Stores your auth token in `~/.scopeform/config.json`.
 
 Flags:
 
@@ -79,5 +79,5 @@ Flags:
 
 ### Global flags
 
-- `--api-url TEXT` Default: `SCOPEFORM_API_URL` or `https://api.scopeform.dev`
+- `--api-url TEXT` Default: `SCOPEFORM_API_URL` or the Scopeform production API URL
 - `--version` Show the installed package version

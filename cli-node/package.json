@@ -14,13 +14,13 @@
     "test": "jest",
     "prepublishOnly": "npm run build && npm test"
   },
-  "homepage": "https://scopeform.dev",
+  "homepage": "https://scopeform-web.vercel.app",
   "bugs": {
-    "url": "https://github.com/scopeform/scopeform/issues"
+    "url": "https://github.com/emartai/scopeform/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/scopeform/scopeform.git",
+    "url": "https://github.com/emartai/scopeform.git",
     "directory": "cli-node"
   },
   "keywords": [
