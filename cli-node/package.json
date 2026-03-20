@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Identity and access management for AI agents",
   "bin": {
-    "scopeform": "./dist/index.js"
+    "scopeform": "dist/index.js"
   },
   "files": [
     "dist/**/*"
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/emartai/scopeform.git",
+    "url": "git+https://github.com/emartai/scopeform.git",
     "directory": "cli-node"
   },
   "keywords": [
