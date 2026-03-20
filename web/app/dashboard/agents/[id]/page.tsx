@@ -8,7 +8,8 @@ import { IdentityCard } from "@/components/detail/IdentityCard";
 import { ScopesCard } from "@/components/detail/ScopesCard";
 import { TokenCard } from "@/components/detail/TokenCard";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { ApiError, api } from "@/lib/api";
+import { ApiError } from "@/lib/api";
+import { serverApi } from "@/lib/server-api";
 
 type AgentDetailPageProps = {
   params: {
@@ -24,7 +25,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
   let agent;
 
   try {
-    agent = await api.getAgent(params.id);
+    agent = await serverApi.getAgent(params.id);
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) {
       notFound();
@@ -33,7 +34,7 @@ export default async function AgentDetailPage({ params }: AgentDetailPageProps) 
     throw error;
   }
 
-  const recentLogs = await api
+  const recentLogs = await serverApi
     .getAgentLogs(params.id, { limit: 5 })
     .then((response) => response.items)
     .catch(() => []);

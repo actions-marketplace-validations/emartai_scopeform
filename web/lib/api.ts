@@ -20,8 +20,6 @@ export type LogEntry = {
   called_at: string;
 };
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-
 export class ApiError extends Error {
   status: number;
 
@@ -33,7 +31,7 @@ export class ApiError extends Error {
 }
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}/api/v1${path}`, {
+  const response = await fetch(`/api/proxy${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",

@@ -1,0 +1,14 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+import { proxyFetch } from "@/lib/proxy";
+
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const res = await proxyFetch("/tokens/revoke", {
+    method: "POST",
+    body: JSON.stringify(body)
+  });
+  const data = await res.json();
+  return NextResponse.json(data, { status: res.status });
+}
