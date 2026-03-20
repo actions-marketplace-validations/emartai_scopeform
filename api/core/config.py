@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     clerk_secret_key: str = "clerk_secret_key_placeholder"
     clerk_publishable_key: str = "clerk_publishable_key_placeholder"
+    encryption_key: str = ""  # Fernet key; generate: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
     api_base_url: str = "http://localhost:8000"
     frontend_url: str = "http://localhost:3000"
     next_public_clerk_publishable_key: str = "clerk_publishable_key_placeholder"

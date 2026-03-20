@@ -3,7 +3,7 @@
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileClock, LayoutGrid, Settings } from "lucide-react";
+import { FileClock, LayoutGrid, Plug, Settings } from "lucide-react";
 
 import { Logo } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { href: "/dashboard" as Route, label: "Agents", icon: LayoutGrid },
   { href: "/dashboard/logs" as Route, label: "Logs", icon: FileClock },
+  { href: "/dashboard/integrations" as Route, label: "Integrations", icon: Plug },
   { href: "/dashboard/settings" as Route, label: "Settings", icon: Settings }
 ];
 

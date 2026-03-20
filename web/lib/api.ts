@@ -82,5 +82,14 @@ export const api = {
     Object.entries(params ?? {}).forEach(([key, value]) => search.set(key, String(value)));
     const suffix = search.toString() ? `?${search.toString()}` : "";
     return apiFetch<{ items: LogEntry[]; total: number }>(`/logs${suffix}`);
-  }
+  },
+  listIntegrations: () =>
+    apiFetch<{ items: Array<{ service: string; configured: boolean; updated_at: string | null }> }>("/integrations"),
+  upsertIntegration: (service: string, apiKey: string) =>
+    apiFetch<{ service: string; configured: boolean }>(`/integrations/${service}`, {
+      method: "PUT",
+      body: JSON.stringify({ api_key: apiKey })
+    }),
+  deleteIntegration: (service: string) =>
+    apiFetch<void>(`/integrations/${service}`, { method: "DELETE" })
 };
