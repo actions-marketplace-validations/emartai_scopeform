@@ -21,15 +21,17 @@ class Settings(BaseSettings):
     clerk_secret_key: str = "clerk_secret_key_placeholder"
     clerk_publishable_key: str = "clerk_publishable_key_placeholder"
     api_base_url: str = "http://localhost:8000"
+    frontend_url: str = "http://localhost:3000"
     next_public_clerk_publishable_key: str = "clerk_publishable_key_placeholder"
     next_public_api_url: str = "http://localhost:8000"
 
     @computed_field
     @property
     def cors_origins(self) -> list[str]:
-        if "localhost" in self.next_public_api_url or "127.0.0.1" in self.next_public_api_url:
-            return ["http://localhost:3000"]
-        return [self.next_public_api_url]
+        origins = {self.frontend_url}
+        if "localhost" in self.frontend_url or "127.0.0.1" in self.frontend_url:
+            origins.add("http://localhost:3000")
+        return list(origins)
 
 
 @lru_cache
