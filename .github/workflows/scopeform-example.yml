@@ -1,9 +1,9 @@
 name: Deploy agent with Scopeform
 
+# This is a reference example for users to copy into their own agent repos.
+# It is intentionally disabled in this repository.
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:  # manual trigger only — not run automatically
 
 jobs:
   deploy:
