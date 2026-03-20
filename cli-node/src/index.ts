@@ -12,11 +12,11 @@ program
   .name("scopeform")
   .description("Identity and access management for AI agents")
   .version("0.1.0")
-  .option("--api-url <url>", "Scopeform API base URL", process.env.SCOPEFORM_API_URL ?? "https://api.scopeform.dev");
+  .option("--api-url <url>", "Scopeform API base URL", process.env.SCOPEFORM_API_URL ?? "https://scopeform-production-f0b7.up.railway.app");
 
 program
   .command("login")
-  .description("Authenticate via browser login")
+  .description("Sign in with email and password")
   .action(async () => {
     const apiUrl = program.opts<{ apiUrl: string }>().apiUrl;
     await loginCommand(apiUrl);

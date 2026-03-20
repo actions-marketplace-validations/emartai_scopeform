@@ -105,6 +105,13 @@ class ScopeformClient:
             json={"clerk_session_token": clerk_session_token},
         )
 
+    def login(self, email: str, password: str) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            "/api/v1/auth/login",
+            json={"email": email, "password": password},
+        )
+
     def register_agent(self, payload: dict[str, Any]) -> dict[str, Any]:
         return self._request("POST", "/api/v1/agents", json=payload)
 

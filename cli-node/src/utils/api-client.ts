@@ -86,6 +86,12 @@ export class ScopeformClient {
     });
   }
 
+  async login(email: string, password: string): Promise<Record<string, unknown>> {
+    return this.request<Record<string, unknown>>("POST", "/api/v1/auth/login", {
+      data: { email, password },
+    });
+  }
+
   async registerAgent(payload: Record<string, unknown>): Promise<Record<string, unknown>> {
     return this.request<Record<string, unknown>>("POST", "/api/v1/agents", { data: payload });
   }
