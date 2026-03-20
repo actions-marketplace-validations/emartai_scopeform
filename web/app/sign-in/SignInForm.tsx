@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { Logo } from "@/components/brand/Logo";
@@ -11,7 +10,6 @@ export function SignInForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -29,8 +27,7 @@ export function SignInForm() {
         const data = await res.json().catch(() => ({}));
         setError(data.error ?? "Invalid email or password.");
       } else {
-        router.push("/dashboard");
-        router.refresh();
+        window.location.href = "/dashboard";
       }
     } catch {
       setError("Something went wrong. Please try again.");
@@ -47,8 +44,10 @@ export function SignInForm() {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-[12px] text-[#a1a1aa]">Email</label>
+            <label htmlFor="email" className="mb-1 block text-[12px] text-[#a1a1aa]">Email</label>
             <input
+              id="email"
+              name="email"
               type="email"
               required
               autoComplete="email"
@@ -58,8 +57,10 @@ export function SignInForm() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-[12px] text-[#a1a1aa]">Password</label>
+            <label htmlFor="password" className="mb-1 block text-[12px] text-[#a1a1aa]">Password</label>
             <input
+              id="password"
+              name="password"
               type="password"
               required
               autoComplete="current-password"

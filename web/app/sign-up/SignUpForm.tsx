@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { Logo } from "@/components/brand/Logo";
@@ -12,7 +11,6 @@ export function SignUpForm() {
   const [orgName, setOrgName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,8 +28,7 @@ export function SignUpForm() {
         const data = await res.json().catch(() => ({}));
         setError(data.error ?? "Registration failed. Please try again.");
       } else {
-        router.push("/dashboard");
-        router.refresh();
+        window.location.href = "/dashboard";
       }
     } catch {
       setError("Something went wrong. Please try again.");
@@ -48,8 +45,10 @@ export function SignUpForm() {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-[12px] text-[#a1a1aa]">Email</label>
+            <label htmlFor="email" className="mb-1 block text-[12px] text-[#a1a1aa]">Email</label>
             <input
+              id="email"
+              name="email"
               type="email"
               required
               autoComplete="email"
@@ -59,8 +58,10 @@ export function SignUpForm() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-[12px] text-[#a1a1aa]">Password</label>
+            <label htmlFor="password" className="mb-1 block text-[12px] text-[#a1a1aa]">Password</label>
             <input
+              id="password"
+              name="password"
               type="password"
               required
               autoComplete="new-password"
@@ -71,10 +72,12 @@ export function SignUpForm() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-[12px] text-[#a1a1aa]">
+            <label htmlFor="org_name" className="mb-1 block text-[12px] text-[#a1a1aa]">
               Organisation name <span className="text-[#52525b]">(optional)</span>
             </label>
             <input
+              id="org_name"
+              name="org_name"
               type="text"
               value={orgName}
               onChange={(e) => setOrgName(e.target.value)}
